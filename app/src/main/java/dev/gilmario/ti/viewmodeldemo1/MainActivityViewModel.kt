@@ -1,17 +1,19 @@
 package dev.gilmario.ti.viewmodeldemo1
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class MainActivityViewModel : ViewModel() {
-    private var count = 0
+
+     var count = MutableLiveData<Int>()
 
 
-    fun getCount() : Int {
-        return count;
+    init{
+        count.value = 0
     }
 
-    fun getIcrementCount() : Int {
-        return count++;
+    fun updateCount()  {
+         count.value = (count.value)?.plus(1);
     }
 
 }

@@ -3,6 +3,7 @@ package dev.gilmario.ti.viewmodeldemo1
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -17,11 +18,13 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         viewModel = ViewModelProviders.of(this).get(MainActivityViewModel::class.java)
 
-        binding.countText.text = viewModel.getCount().toString()
+
+        viewModel.count.observe(this, Observer {
+            binding.countText.text = it.toString()
+        })
 
         binding.button.setOnClickListener({
-            viewModel.getIcrementCount()
-            binding.countText.text = viewModel.getCount().toString()
+            viewModel.updateCount()
         })
 
     }
